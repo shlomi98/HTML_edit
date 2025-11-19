@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Style Dashboard Mockup</title>
+    <style>
+        :root {
+            --sf-blue: #0176d3;
+            --sf-green: #2e844a;
+            --sf-orange: #dd7a01;
+            --sf-gray: #706e6b;
+            --sf-bg: #f3f3f3;
+            --sf-card-bg: #ffffff;
+            --sf-text: #3e3e3c;
+            --sf-border: #dddbda;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--sf-bg);
+            color: var(--sf-text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--sf-card-bg);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--sf-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,0.05);
+        }
+
+        .logo-area {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--sf-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* Cards/Components */
+        .card {
+            background: var(--sf-card-bg);
+            border: 1px solid var(--sf-border);
+            border-radius: 4px;
+            padding: 16px;
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,0.05);
+        }
+
+        .card-full-width {
+            grid-column: span 3;
+        }
+
+        .card-header {
+            font-size: 0.9em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--sf-border);
+            padding-bottom: 10px;
+        }
+
+        /* Metric Big Number */
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: 300;
+            color: #080707;
+        }
+
+        .metric-label {
+            color: #706e6b;
+            font-size: 0.85em;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: right;
+            color: #706e6b;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            padding: 8px;
+            border-bottom: 1px solid var(--sf-border);
+        }
+
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #ecebea;
+            font-size: 0.9em;
+        }
+
+        /* Simple CSS Bar Chart */
+        .bar-container {
+            background: #ecebea;
+            height: 10px;
+            width: 100px;
+            border-radius: 5px;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--sf-blue);
+        }
+
+        /* Pie Chart (Donut) CSS */
+        .chart-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 150px;
+        }
+
+        .donut-chart {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            position: relative;
+            /* הגדרת הצבעים והאחוזים של העוגה */
+            background: conic-gradient(
+                var(--sf-blue) 0% 45%,      /* צבע ראשון: 45% */
+                var(--sf-green) 45% 75%,    /* צבע שני: 30% */
+                var(--sf-orange) 75% 90%,   /* צבע שלישי: 15% */
+                var(--sf-gray) 90% 100%     /* צבע רביעי: 10% */
+            );
+        }
+
+        /* החור באמצע שהופך את זה לדונאט */
+        .donut-chart::after {
+            content: "";
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            background: #fff;
+            border-radius: 50%;
+            top: 20%;
+            left: 20%;
+        }
+
+        .legend {
+            font-size: 0.85em;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 8px;
+            display: inline-block;
+        }
+
+        /* Edit Mode Hint */
+        .edit-hint {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo-area" contenteditable="true">☁️ Sales Dashboard</div>
+        <div style="font-size: 0.9em; color: gray;" contenteditable="true">עודכן לאחרונה: היום ב-09:00</div>
+    </div>
+
+    <div class="dashboard-grid">
+        
+        <div class="card">
+            <div class="card-header" contenteditable="true">סך הכנסות רבעוני</div>
+            <div class="metric-value" contenteditable="true">₪1,250,000</div>
+            <div class="metric-label" contenteditable="true">+12% לעומת רבעון קודם</div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" contenteditable="true">עסקאות פתוחות</div>
+            <div class="metric-value" contenteditable="true">42</div>
+            <div class="metric-label" contenteditable="true">בשווי כולל של ₪3.4M</div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" contenteditable="true">יעד חודשי</div>
+            <div class="metric-value" contenteditable="true">85%</div>
+            <div class="metric-label" contenteditable="true">נשארו 5 ימים לסגירה</div>
+        </div>
+
+        <div class="card card-full-width">
+            <div class="card-header">
+                <span contenteditable="true">ביצועים לפי נציג מכירות (Q4)</span>
+                <span style="color:var(--sf-blue); cursor:pointer;" contenteditable="true">הצג הכל</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th contenteditable="true">שם נציג</th>
+                        <th contenteditable="true">סטטוס</th>
+                        <th contenteditable="true">כמות עסקאות</th>
+                        <th contenteditable="true">התקדמות ליעד</th>
+                        <th contenteditable="true">סך הכנסות</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td contenteditable="true">דניאל כהן</td>
+                        <td contenteditable="true">🔥 בשיא</td>
+                        <td contenteditable="true">15</td>
+                        <td>
+                            <div class="bar-container"><div class="bar-fill" style="width: 90%;"></div></div>
+                            <span contenteditable="true">90%</span>
+                        </td>
+                        <td contenteditable="true">₪450,000</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">רונית לוי</td>
+                        <td contenteditable="true">🟢 בקצב טוב</td>
+                        <td contenteditable="true">12</td>
+                        <td>
+                            <div class="bar-container"><div class="bar-fill" style="width: 75%;"></div></div>
+                            <span contenteditable="true">75%</span>
+                        </td>
+                        <td contenteditable="true">₪320,000</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">יוסי אברהמי</td>
+                        <td contenteditable="true">🟡 טעון שיפור</td>
+                        <td contenteditable="true">8</td>
+                        <td>
+                            <div class="bar-container"><div class="bar-fill" style="width: 50%;"></div></div>
+                            <span contenteditable="true">50%</span>
+                        </td>
+                        <td contenteditable="true">₪180,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-header" contenteditable="true">לידים חדשים לפי מקור</div>
+            <div class="chart-wrapper">
+                <div class="donut-chart"></div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="dot" style="background: var(--sf-blue);"></span>
+                        <span contenteditable="true">Linkedin (45%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="dot" style="background: var(--sf-green);"></span>
+                        <span contenteditable="true">אתר הבית (30%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="dot" style="background: var(--sf-orange);"></span>
+                        <span contenteditable="true">הפניות (15%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="dot" style="background: var(--sf-gray);"></span>
+                        <span contenteditable="true">אחר (10%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" contenteditable="true">משימות להיום</div>
+            <ul style="padding-right: 20px; margin: 0; font-size: 0.9em; line-height: 1.8;">
+                <li contenteditable="true">שיחת פולו-אפ עם אינטל</li>
+                <li contenteditable="true">הכנת הצעת מחיר לאלביט</li>
+                <li contenteditable="true">ישיבת צוות שבועית</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="edit-hint">טיפ: לחץ על כל טקסט בעמוד כדי לערוך אותו בזמן אמת!</div>
+</body>
+</html>
